@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Auth from "./pages/Auth/Auth";
 import { auth, createUserProfileDocument } from "./firebase/firebase";
+import { onSnapshot } from "firebase/firestore";
 
 class App extends React.Component {
   constructor(props) {
@@ -19,8 +20,28 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-      createUserProfileDocument(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        onSnapshot(userRef, (docSnapshot) => {
+          this.setState(
+            {
+              currentUser: {
+                id: docSnapshot.id,
+                ...docSnapshot.data(),
+              },
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+        });
+      } else {
+        this.setState({
+          currentUser: userAuth,
+        });
+      }
     });
   }
 
