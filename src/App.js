@@ -31,7 +31,6 @@ class App extends React.Component {
               ...docSnapshot.data(),
             },
           });
-          console.log(this.state);
         });
       } else {
         this.setState({
