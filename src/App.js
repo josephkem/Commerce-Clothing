@@ -8,10 +8,10 @@ import { setCurrentUser } from "./redux/user/userActions";
 import Header from "./components/header/Header";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/userSelectors";
+import Checkout from "./pages/Checkout/Checkout";
 import Auth from "./pages/Auth/Auth";
 import { auth, createUserProfileDocument } from "./firebase/firebase";
 import { onSnapshot } from "firebase/firestore";
-import { selectCartHidden } from "./redux/cart/cartSelectors";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -47,6 +47,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route
             exact
             path="/signin"
