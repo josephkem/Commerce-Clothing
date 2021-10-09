@@ -6,9 +6,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/userActions";
 import Header from "./components/header/Header";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "./redux/user/userSelectors";
 import Auth from "./pages/Auth/Auth";
 import { auth, createUserProfileDocument } from "./firebase/firebase";
 import { onSnapshot } from "firebase/firestore";
+import { selectCartHidden } from "./redux/cart/cartSelectors";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -57,8 +60,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
