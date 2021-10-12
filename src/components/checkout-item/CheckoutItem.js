@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeItemFromCart } from "../../redux/cart/cart.utils";
 import {
   addItem,
   clearItemFromCart,
   removeItem,
 } from "../../redux/cart/cartActions";
-import CartItem from "../cart-item/CartItem";
 import "./checkout-item.styles.scss";
 
 function CheckoutItem({ cartItem, clearItem, addItem, removeItem }) {
